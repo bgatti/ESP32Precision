@@ -1,0 +1,5 @@
+read -sv "project_code_dump_temp_dir/main.v"
+synth_xilinx -flatten -nodsp
+clean
+write_verilog "post_synth_results.v"
+write_edif "netlist.edif"

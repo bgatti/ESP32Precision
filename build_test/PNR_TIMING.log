@@ -1,0 +1,298 @@
+Timing Summary
+==============
+
+   POST-ROUTE
+
+                                                         Group  No. Clocks  No. Clock Pairs  WNS(ps)   TNS(ps)  TNS Endpoints      
+                                                   -----------  ----------  ---------------  -------   -------  -------------      
+                                                    <UDEF_clk>           1                1   -25998  -1692432            153      
+   <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>           2                2    -5246     -9492              2      
+
+
+
+
+Clocks
+======
+
+                                                       Clock                                               Clock net                                                        Group  Constrained Period(ps)      Waveform(ps)   Achievable Period(ps)  Achievable Frequency(MHz)
+                                              --------------                                             -----------                                                  -----------  ----------------------  -----------------  ---------------------  -------------------------
+                                                         clk                                                     clk                                                   <UDEF_clk>           (auto) 2000            (0,1000)                  27997                     35.718 
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_n  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>           (auto) 2000            (1000,0)                  12491                     80.058 
+        $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]    $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>           (auto) 2000            (0,1000)                  12491                     80.058 
+
+
+
+
+Clock Relationships
+===================
+
+                                                  From Clock                                                   To Clock                                                        Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+                                              --------------                                             --------------                                           ------------------  -----------  ----------  ---------  -------------
+                                                         clk                                                        clk                                                   <UDEF_clk>          153      -25998   -1692432            153
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            0                                     0
+        $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]       $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            1       -4246      -4246              1
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)       $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            0                                     0
+        $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            1       -5246      -5246              1
+
+
+
+
+Timing Details for Clock Pair clk and clk
+=========================================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+              clk             clk          <UDEF_clk>          153      -25998   -1692432            153
+
+   Slack (not met):                        -25998ps
+     Path type:                               SETUP
+     Group:                              <UDEF_clk>
+     Launching clock:                           clk (rising edge)
+     Capturing clock:                           clk (rising edge)
+
+     Requested period:                       2000ps
+   + Delay of the capturing clock:              0ps
+   - Clock uncertainty:                         0ps
+   = Required time:                          2000ps
+   - Propagation time:                      27998ps (77.5% logic, 22.5% route, logic stage 6)
+   - Delay of the launching clock:              0ps
+   = Slack:                                -25998ps
+
+   Instance/Pin or Net Name                                                                                                                                                                                                Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -     launch     r               0   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/CLK                                                                                                                                               RBB_6L        9   [TILE 0 0, RBB 13 4]          -     r               0   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/AQ                                                                                                                                                RBB_6L        9   [TILE 0 0, RBB 13 4]       2700     r            2700   
+   flighttime[16]                                                                                                                                                                                                          Net          55             (fanout=4)       1407                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C3                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            4107   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            5907   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3128.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.f0                                                                                              Net         309             (fanout=1)       1196                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D1                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            7103   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            8903   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.G[3]                                                                                                                                                                      Net         108             (fanout=1)       1196                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/D6                                                                                                                                        RBB_6L       21  [TILE 0 0, RBB 16 10]          -     r           10099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/COUT                                                                                                                                      RBB_6L       21  [TILE 0 0, RBB 16 10]       3000     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.CO[3]                                                                                                                                                                     Net         113             (fanout=1)          0                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/CIN                                                                                                                                       RBB_6L       22  [TILE 0 0, RBB 19 10]          -     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/BMUX                                                                                                                                      RBB_6L       22  [TILE 0 0, RBB 19 10]       5250     r           18349   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[2]                                                                                                                                                                    Net          95             (fanout=1)       1260                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/D1    RBB_6L       25  [TILE 0 0, RBB 22 14]          -     r           19609   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/BMUX  RBB_6L       25  [TILE 0 0, RBB 22 14]       3150     r           22759   
+   $abc$3112$auto$opt_dff.cc:222:make_patterns_logic$1470                                                                                                                                                                  Net         100             (fanout=2)       1239                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3118/A6                                                                                                                                                                      RBB_6L       31  [TILE 0 0, RBB 25 14]          -     r           23998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3118/CLK                                                                                                                                                                     RBB_6L       31  [TILE 0 0, RBB 25 14]       4000     r           27998   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -    capture     r           27998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+   Slack (not met):                        -25998ps
+     Path type:                               SETUP
+     Group:                              <UDEF_clk>
+     Launching clock:                           clk (rising edge)
+     Capturing clock:                           clk (rising edge)
+
+     Requested period:                       2000ps
+   + Delay of the capturing clock:              0ps
+   - Clock uncertainty:                         0ps
+   = Required time:                          2000ps
+   - Propagation time:                      27998ps (77.5% logic, 22.5% route, logic stage 6)
+   - Delay of the launching clock:              0ps
+   = Slack:                                -25998ps
+
+   Instance/Pin or Net Name                                                                                                                                                                                                Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -     launch     r               0   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/CLK                                                                                                                                               RBB_6L        9   [TILE 0 0, RBB 13 4]          -     r               0   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/AQ                                                                                                                                                RBB_6L        9   [TILE 0 0, RBB 13 4]       2700     r            2700   
+   flighttime[16]                                                                                                                                                                                                          Net          55             (fanout=4)       1407                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C3                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            4107   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            5907   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3128.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.f0                                                                                              Net         309             (fanout=1)       1196                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D1                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            7103   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            8903   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.G[3]                                                                                                                                                                      Net         108             (fanout=1)       1196                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/D6                                                                                                                                        RBB_6L       21  [TILE 0 0, RBB 16 10]          -     r           10099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/COUT                                                                                                                                      RBB_6L       21  [TILE 0 0, RBB 16 10]       3000     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.CO[3]                                                                                                                                                                     Net         113             (fanout=1)          0                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/CIN                                                                                                                                       RBB_6L       22  [TILE 0 0, RBB 19 10]          -     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/BMUX                                                                                                                                      RBB_6L       22  [TILE 0 0, RBB 19 10]       5250     r           18349   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[2]                                                                                                                                                                    Net          95             (fanout=1)       1260                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/D1    RBB_6L       25  [TILE 0 0, RBB 22 14]          -     r           19609   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/BMUX  RBB_6L       25  [TILE 0 0, RBB 22 14]       3150     r           22759   
+   $abc$3112$auto$opt_dff.cc:222:make_patterns_logic$1470                                                                                                                                                                  Net         100             (fanout=2)       1239                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/D6    RBB_6L       25  [TILE 0 0, RBB 22 14]          -     r           23998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/CLK   RBB_6L       25  [TILE 0 0, RBB 22 14]       4000     r           27998   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -    capture     r           27998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+   Slack (not met):                        -25998ps
+     Path type:                               SETUP
+     Group:                              <UDEF_clk>
+     Launching clock:                           clk (rising edge)
+     Capturing clock:                           clk (rising edge)
+
+     Requested period:                       2000ps
+   + Delay of the capturing clock:              0ps
+   - Clock uncertainty:                         0ps
+   = Required time:                          2000ps
+   - Propagation time:                      27998ps (77.5% logic, 22.5% route, logic stage 6)
+   - Delay of the launching clock:              0ps
+   = Slack:                                -25998ps
+
+   Instance/Pin or Net Name                                                                                                                                                                                                Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -     launch     r               0   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/CLK                                                                                                                                               RBB_6L        9   [TILE 0 0, RBB 13 4]          -     r               0   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $auto$alumacc.cc:485:replace_alu$1939.genblk1.slice[4].genblk1.carry4/AQ                                                                                                                                                RBB_6L        9   [TILE 0 0, RBB 13 4]       2700     r            2700   
+   flighttime[16]                                                                                                                                                                                                          Net          55             (fanout=4)       1407                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C3                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            4107   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/C                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            5907   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3128.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.f0                                                                                              Net         309             (fanout=1)       1196                     -   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D1                                                                                                                                                                           RBB_6L       40   [TILE 0 0, RBB 16 8]          -     r            7103   
+   $auto$simplemap.cc:442:simplemap_dffe$2315/D                                                                                                                                                                            RBB_6L       40   [TILE 0 0, RBB 16 8]       1800     r            8903   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.G[3]                                                                                                                                                                      Net         108             (fanout=1)       1196                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/D6                                                                                                                                        RBB_6L       21  [TILE 0 0, RBB 16 10]          -     r           10099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[0].genblk1.carry4/COUT                                                                                                                                      RBB_6L       21  [TILE 0 0, RBB 16 10]       3000     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.CO[3]                                                                                                                                                                     Net         113             (fanout=1)          0                     -   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/CIN                                                                                                                                       RBB_6L       22  [TILE 0 0, RBB 19 10]          -     r           13099   
+   $ge$project_code_dump_temp_dir/main.v:57$1216.genblk1.slice[1].genblk1.carry4/BMUX                                                                                                                                      RBB_6L       22  [TILE 0 0, RBB 19 10]       5250     r           18349   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[2]                                                                                                                                                                    Net          95             (fanout=1)       1260                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/D1    RBB_6L       25  [TILE 0 0, RBB 22 14]          -     r           19609   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.lut0.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.genblk1.mux7/BMUX  RBB_6L       25  [TILE 0 0, RBB 22 14]       3150     r           22759   
+   $abc$3112$auto$opt_dff.cc:222:make_patterns_logic$1470                                                                                                                                                                  Net         100             (fanout=2)       1239                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3118/A6                                                                                                                                                                      RBB_6L       31  [TILE 0 0, RBB 25 14]          -     r           23998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3118/CLK                                                                                                                                                                     RBB_6L       31  [TILE 0 0, RBB 25 14]       4000     r           27998   
+   clk                                                                                                                                                                                                                     Clock net    75          (fanout=2377)          0                     -   
+   clk                                                                                                                                                                                                                     CLOCK-PORT    -                      -    capture     r           27998   
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+Timing Details for Clock Pair $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv) and $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)
+=====================================================================================================================================================
+
+                                                  From Clock                                                   To Clock                                                        Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+                                              --------------                                             --------------                                           ------------------  -----------  ----------  ---------  -------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            0                                     0
+
+   No path.
+
+
+
+
+Timing Details for Clock Pair $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0] and $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]
+===========================================================================================================================================
+
+                                             From Clock                                              To Clock                                                        Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+                                         --------------                                        --------------                                           ------------------  -----------  ----------  ---------  -------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            1       -4246      -4246              1
+
+   Slack (not met):                         -4246ps
+     Path type:                               SETUP
+     Group:              <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>
+     Launching clock:    $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0] (rising edge)
+     Capturing clock:    $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0] (rising edge)
+
+     Requested period:                       2000ps
+   + Delay of the capturing clock:              0ps
+   - Clock uncertainty:                         0ps
+   = Required time:                          2000ps
+   - Propagation time:                       6246ps (80.9% logic, 19.1% route, logic stage 1)
+   - Delay of the launching clock:              0ps
+   = Slack:                                 -4246ps
+
+   Instance/Pin or Net Name                                       Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           CLOCK-PORT    -                      -     launch     r               0   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           Clock net    94            (fanout=36)          0                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/CLK   RBB_6L       32  [TILE 0 0, RBB 28 14]          -     r               0   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/DQ    RBB_6L       32  [TILE 0 0, RBB 28 14]       2700     r            2700   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_FFp_Q     Net         341             (fanout=2)       1196                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/D1    RBB_6L       32  [TILE 0 0, RBB 28 14]          -     r            3896   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/CLK   RBB_6L       32  [TILE 0 0, RBB 28 14]       2350     r            6246   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           Clock net    94            (fanout=36)          0                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           CLOCK-PORT    -                      -    capture     r            6246   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+Timing Details for Clock Pair $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv) and $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]
+================================================================================================================================================
+
+                                                  From Clock                                              To Clock                                                        Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+                                              --------------                                        --------------                                           ------------------  -----------  ----------  ---------  -------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            0                                     0
+
+   No path.
+
+
+
+
+Timing Details for Clock Pair $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0] and $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)
+================================================================================================================================================
+
+                                             From Clock                                                   To Clock                                                        Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+                                         --------------                                             --------------                                           ------------------  -----------  ----------  ---------  -------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]  $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv)  <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>            1       -5246      -5246              1
+
+   Slack (not met):                         -5246ps
+     Path type:                               SETUP
+     Group:              <UDEF_$abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]>
+     Launching clock:    $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0] (rising edge)
+     Capturing clock:    $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0](inv) (rising edge)
+
+     Requested period:                       1000ps
+   + Delay of the capturing clock:              0ps
+   - Clock uncertainty:                         0ps
+   = Required time:                          1000ps
+   - Propagation time:                       6246ps (80.9% logic, 19.1% route, logic stage 1)
+   - Delay of the launching clock:              0ps
+   = Slack:                                 -5246ps
+
+   Instance/Pin or Net Name                                       Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           CLOCK-PORT    -                      -     launch     r               0   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]           Clock net    94            (fanout=36)          0                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/CLK   RBB_6L       32  [TILE 0 0, RBB 28 14]          -     r               0   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_inv/DQ    RBB_6L       32  [TILE 0 0, RBB 28 14]       2700     r            2700   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_FFp_Q     Net         341             (fanout=2)       1196                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_FFn/D6    RBB_6L       33  [TILE 0 0, RBB 28 12]          -     r            3896   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_FFn/CLK   RBB_6L       33  [TILE 0 0, RBB 28 12]       2350     r            6246   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_n         Clock net   339            (fanout=92)          0                     -   
+   $abc$3112$auto$blifparse.cc:515:parse_blif$3116.A[0]_n         CLOCK-PORT    -                      -    capture     r            6246   
+   -------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
