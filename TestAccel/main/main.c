@@ -56,7 +56,7 @@ int32_t i2c_write(void *ctx, uint8_t devAddr, uint8_t *data, uint16_t len) {
     i2c_master_write_byte(cmd, devAddr, true);
     i2c_master_write(cmd, data, len, true);
     i2c_master_stop(cmd);
-    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_PERIOD_MS);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_RATE_MS);
     i2c_cmd_link_delete(cmd);
     return ret;
 }
@@ -70,7 +70,7 @@ int32_t i2c_read(void *ctx, uint8_t regAddr, uint8_t *data, uint16_t len) {
     i2c_master_write_byte(cmd, (LIS2DW12TR_ADDR << 1) | I2C_MASTER_READ, true);
     i2c_master_read(cmd, data, len, I2C_MASTER_LAST_NACK);
     i2c_master_stop(cmd);
-    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_PERIOD_MS);
+    esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 1000 / portTICK_RATE_MS);
     i2c_cmd_link_delete(cmd);
     return ret;
 }

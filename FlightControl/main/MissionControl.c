@@ -1,6 +1,4 @@
 #include "MissionControl.h"
-#include "MissionControltoGuidance.h"
-#include "GuidancetoMissionControl.h"
 
 QueueHandle_t MissionControltoGuidance;
 static MissionState currentState = SLEEP;
@@ -14,8 +12,8 @@ void MissionControl_StateHandler(void *pvParameters) {
     // Initialize Mission Control
     MissionControl_Init();
     
-    MissionState nextState;
-    Status status;
+    MissionState nextState = SLEEP;
+    //Status status;
     
     while(1) {
         switch(currentState) {
@@ -48,7 +46,7 @@ void MissionControl_StateHandler(void *pvParameters) {
         }
 
         // Receive status message from Guidance
-        xQueueReceive(GuidancetoMissionControl, &status, portMAX_DELAY);
+//        xQueueReceive(GuidancetoMissionControl, &status, portMAX_DELAY);
         
         // Update state based on status message
         // Your state transition logic goes here

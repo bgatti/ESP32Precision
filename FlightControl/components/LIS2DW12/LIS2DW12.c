@@ -1,5 +1,5 @@
 #include "LIS2DW12.h"
-//#include "esp_log.h"
+#include "esp_log.h"
 #include "lis2dw12_reg.h"
 #include "driver/i2c.h"
 //#include "hardware.h" // in future push local defines to hardware.h
@@ -126,7 +126,7 @@ LIS2DW12StatusTypeDef accel_begin() {
 }
 
 //Reads the accelerometer and returns the raw values
-LIS2DW12StatusTypeDef read_accel_raw(axis3bit16_t *accel_data) {
+LIS2DW12StatusTypeDef read_accel_raw(lis_axis3bit16_t *accel_data) {
     /* Read raw data values. */
     axis3bit16_t data_raw;
     if (lis2dw12_acceleration_raw_get(&reg_ctx, data_raw.u8bit) != 0)
@@ -152,4 +152,17 @@ LIS2DW12StatusTypeDef set_accel_mode(LIS2DW12_Operating_Mode_t mode)
         return LIS2DW12_STATUS_ERROR;
     }
     return LIS2DW12_STATUS_OK;
+}
+
+
+int testable_mean(const int* values, int count)
+{
+    if (count == 0) {
+        return 0;
+    }
+    int sum = 0;
+    for (int i = 0; i < count; ++i) {
+        sum += values[i];
+    }
+    return sum / count;
 }

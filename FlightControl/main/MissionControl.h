@@ -1,8 +1,8 @@
 #ifndef MISSIONCONTROL_H
 #define MISSIONCONTROL_H
 
-#include "FreeRTOS.h"
-#include "queue.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/queue.h"
 
 // Enumerated type to represent the different states of Mission Control
 typedef enum {

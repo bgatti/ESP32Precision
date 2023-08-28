@@ -34,7 +34,7 @@ typedef enum {
 typedef union{
   int16_t i16bit[3];
   uint8_t u8bit[6];
-} axis3bit16_t;
+} lis_axis3bit16_t;
 
 
 //void i2c_master_init(void);
@@ -42,7 +42,9 @@ typedef union{
 //int32_t i2c_read(void *ctx, uint8_t regAddr, uint8_t *data, uint16_t len);
 
 LIS2DW12StatusTypeDef accel_begin(void);
-LIS2DW12StatusTypeDef read_accel_raw(axis3bit16_t *accel_data);
+LIS2DW12StatusTypeDef read_accel_raw(lis_axis3bit16_t *accel_data);
 LIS2DW12StatusTypeDef set_accel_mode(LIS2DW12_Operating_Mode_t mode);
+
+int testable_mean(const int* values, int count);
 
 #endif // LIS2DW12_H
