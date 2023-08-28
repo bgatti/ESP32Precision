@@ -14,5 +14,9 @@
     ],
     "idf.portWin": "COM12",
     "idf.pythonBinPathWin": "C:\\Users\\Benja\\.espressif\\python_env\\idf5.1_py3.11_env\\Scripts\\python.exe",
-    "idf.toolsPathWin": "C:\\Users\\Benja\\.espressif"
+    "idf.toolsPathWin": "C:\\Users\\Benja\\.espressif",
+    "files.associations": {
+        "sdkconfig.h": "c",
+        "freertos.h": "c"
+    }
 }

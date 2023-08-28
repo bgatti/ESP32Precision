@@ -1,0 +1,39 @@
+CMake Error at C:/Users/Benja/esp/esp-idf/tools/cmake/component.cmake:224 (message):
+  CMake Warning (dev) at build_properties.temp.cmake:8:
+
+    Syntax Warning in cmake code at column 47
+
+  
+
+    Argument not separated from preceding token by whitespace.
+
+  Call Stack (most recent call first):
+
+    C:/Users/Benja/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:3 (include)
+
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+
+  
+
+  CMake Error at
+  C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/components/IMU/CMakeLists.txt:3:
+
+
+    Parse error.  Expected a command name, got unquoted argument with text
+    "[REQUIRES".
+
+  Call Stack (most recent call first):
+
+    C:/Users/Benja/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:106 (include)
+    C:/Users/Benja/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:124 (__component_get_requirements)
+
+  
+
+  
+
+Call Stack (most recent call first):
+  C:/Users/Benja/esp/esp-idf/tools/cmake/build.cmake:574 (__component_get_requirements)
+  C:/Users/Benja/esp/esp-idf/tools/cmake/project.cmake:464 (idf_build_process)
+  CMakeLists.txt:8 (project)
+
+
