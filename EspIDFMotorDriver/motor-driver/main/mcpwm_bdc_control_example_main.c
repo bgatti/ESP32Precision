@@ -192,7 +192,7 @@ motor_ctrl_ctx.pcnt_encoder = pcnt_unit;
     ESP_ERROR_CHECK(pid_new_control_block(&pid_config, &pid_ctrl));
     motor_ctrl_ctx.pid_ctrl = pid_ctrl;
 
-
+    //unused
     ESP_LOGI(TAG, "Create Position PID control block");
     pid_ctrl_parameter_t pos_pid_runtime_param = {
         .kp = 0.6 / 100,

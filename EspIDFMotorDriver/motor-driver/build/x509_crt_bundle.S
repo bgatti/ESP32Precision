@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded

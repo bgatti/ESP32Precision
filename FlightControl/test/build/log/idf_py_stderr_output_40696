@@ -1,8 +1,0 @@
-CMake Error at C:/Users/Benja/esp/esp-idf/tools/cmake/project.cmake:266 (message):
-  Directory specified in EXTRA_COMPONENT_DIRS doesn't exist:
-  C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/managed_components/*
-Call Stack (most recent call first):
-  C:/Users/Benja/esp/esp-idf/tools/cmake/project.cmake:350 (__project_init)
-  CMakeLists.txt:16 (project)
-
-

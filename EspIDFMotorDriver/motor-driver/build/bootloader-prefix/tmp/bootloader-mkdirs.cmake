@@ -5,18 +5,18 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "C:/Users/Benja/esp/esp-idf/components/bootloader/subproject"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/tmp"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src"
-  "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/tmp"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src"
+  "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

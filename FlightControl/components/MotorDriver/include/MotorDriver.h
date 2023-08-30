@@ -2,9 +2,12 @@
 #define _MOTORDRIVER_H_
 
 #include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "driver/pulse_cnt.h"
 #include "bdc_motor.h"
 #include "pid_ctrl.h"
+#include "esp_timer.h"
+#include "math.h"
 
 
 #define BDC_MCPWM_TIMER_RESOLUTION_HZ 10000000 // 10MHz, 1 tick = 0.1us
@@ -23,6 +26,7 @@ typedef struct {
     uint32_t pwmb_gpio_num;
     uint32_t encoder_gpio;
     pid_ctrl_parameter_t pid_params;
+    char label[10];
 } MotorDriverConfig;
 
 typedef struct {
@@ -33,10 +37,13 @@ typedef struct {
     int last_direction;
     int set_position;
     int position;
+    //add label for debug purposes
+    char label[10];
 } MotorDriverContext;
 
+
 MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motors);
-void MotorDriver_SetPosition(MotorDriverContext* ctx, int position);
+void MotorDriver_Update_Position(MotorDriverContext* ctx, int position);
 static pid_ctrl_block_handle_t pid_ctrl_init(pid_ctrl_parameter_t *init_params);
 static bdc_motor_handle_t motor_init(MotorDriverConfig* config);
 static pcnt_unit_handle_t pcnt_init(int encoder_gpio);

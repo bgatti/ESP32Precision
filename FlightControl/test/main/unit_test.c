@@ -33,7 +33,7 @@ void app_main(void)
     UNITY_BEGIN();
 
     unity_run_test_by_name("MotorDriver_Init");
-    unity_run_test_by_name("MotorDriver_SetPosition");
+    unity_run_test_by_name("MotorDriver_Update_Position");
 
     UNITY_END();
 

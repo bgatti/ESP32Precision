@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/main
+# Install script for directory: C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

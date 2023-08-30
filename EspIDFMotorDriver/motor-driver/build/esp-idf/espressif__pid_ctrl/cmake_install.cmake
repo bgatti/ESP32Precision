@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Benja/OneDrive/Documents/BallisticFPGA/EspIDFMotorDriver/motor-driver/managed_components/espressif__pid_ctrl
+# Install script for directory: C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/EspIDFMotorDriver/motor-driver/managed_components/espressif__pid_ctrl
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
