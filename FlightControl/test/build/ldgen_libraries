@@ -66,5 +66,8 @@ C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/te
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/Guidance/libGuidance.a
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12/libLIS2DW12.a
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU/libIMU.a
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/espressif__bdc_motor/libespressif__bdc_motor.a
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/espressif__pid_ctrl/libespressif__pid_ctrl.a
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver/libMotorDriver.a
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12_test/libtest.a
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver_test/libtest.a

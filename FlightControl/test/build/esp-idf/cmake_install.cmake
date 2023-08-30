@@ -429,11 +429,26 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/espressif__bdc_motor/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/espressif__pid_ctrl/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
   include("C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12_test/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver_test/cmake_install.cmake")
 endif()
 
