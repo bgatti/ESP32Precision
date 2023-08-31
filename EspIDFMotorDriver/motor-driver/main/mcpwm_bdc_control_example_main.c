@@ -139,39 +139,39 @@ void app_main(void)
 
     ESP_LOGI(TAG, "Init pcnt driver to decode single pin pulse signal");
 
-pcnt_unit_config_t unit_config = {
-    .high_limit = BDC_ENCODER_PCNT_HIGH_LIMIT,
-    .low_limit = BDC_ENCODER_PCNT_LOW_LIMIT,
-    .flags.accum_count = true, // enable counter accumulation
-};
-pcnt_unit_handle_t pcnt_unit = NULL;
+    pcnt_unit_config_t unit_config = {
+        .high_limit = BDC_ENCODER_PCNT_HIGH_LIMIT,
+        .low_limit = BDC_ENCODER_PCNT_LOW_LIMIT,
+        .flags.accum_count = true, // enable counter accumulation
+    };
+    pcnt_unit_handle_t pcnt_unit = NULL;
 
-ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit));
+    ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit));
 
-pcnt_glitch_filter_config_t filter_config = {
-    .max_glitch_ns = 1000,
-};
-ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit, &filter_config));
+    pcnt_glitch_filter_config_t filter_config = {
+        .max_glitch_ns = 1000,
+    };
+    ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit, &filter_config));
 
-// Set up channel A configuration for pulse counting
-pcnt_chan_config_t chan_config = {
-    .edge_gpio_num = BDC_ENCODER_GPIO_A,  // Assuming this is your pin
-    .level_gpio_num = -1,  // Not used for single pin config
-};
+    // Set up channel A configuration for pulse counting
+    pcnt_chan_config_t chan_config = {
+        .edge_gpio_num = BDC_ENCODER_GPIO_A,  // Assuming this is your pin
+        .level_gpio_num = -1,  // Not used for single pin config
+    };
 
-pcnt_channel_handle_t pcnt_chan = NULL;
-ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_config, &pcnt_chan));
+    pcnt_channel_handle_t pcnt_chan = NULL;
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_config, &pcnt_chan));
 
-// Set edge action to count both rising and falling edges if desired
-ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
-ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_KEEP));
+    // Set edge action to count both rising and falling edges if desired
+    ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
+    ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_KEEP));
 
-ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_HIGH_LIMIT));
-ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_LOW_LIMIT));
-ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit));
-ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit));
-ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit));
-motor_ctrl_ctx.pcnt_encoder = pcnt_unit;
+    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_HIGH_LIMIT));
+    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_LOW_LIMIT));
+    ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit));
+    ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit));
+    ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit));
+    motor_ctrl_ctx.pcnt_encoder = pcnt_unit;
 
 
     ESP_LOGI(TAG, "Create PID control block");

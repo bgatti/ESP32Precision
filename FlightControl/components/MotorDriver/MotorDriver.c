@@ -31,7 +31,6 @@ struct pid_ctrl_block_t {
 void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
     ctx->set_position = position;
 
-    static int last_pulse_count = 0;
 //    motor_control_context_t *ctx = (motor_control_context_t *)args;
     pcnt_unit_handle_t pcnt_unit = ctx->pcnt_encoder;
     pid_ctrl_block_handle_t pid_ctrl = ctx->pid_ctrl;
@@ -40,8 +39,8 @@ void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
     // get the result from rotary encoder
     int cur_pulse_count = 0;
     pcnt_unit_get_count(pcnt_unit, &cur_pulse_count);
-    int real_pulses = cur_pulse_count - last_pulse_count;
-    last_pulse_count = cur_pulse_count;
+    int real_pulses = cur_pulse_count - ctx->last_pulse_count;
+    ctx->last_pulse_count = cur_pulse_count;
     ctx->report_pulses = real_pulses;
     // support servo mode
     // set speed and direction based on position PID
@@ -77,27 +76,26 @@ void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
 
     if( set_direction == ctx->last_direction) {
 //        pid_compute(pos_pid_ctrl, position_error, &new_target_speed);
-        bdc_motor_set_speed(motor, (uint32_t)fabs(new_speed));
         if (set_direction) {
             bdc_motor_forward(motor);  
         } else {
             bdc_motor_reverse(motor);  
         }
+        bdc_motor_set_speed(motor, (uint32_t)fabs(new_speed));
 
         // print debug info
         //direction, speed, position, set position, error, new speed, real speed, target speed, position error
         //add label for debug purposes
         //ESP_LOGI(TAG, "Drive: %d, %d, %d, \t%d, \t%d, %d, %d", ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
         ESP_LOGI(TAG, "Drive: %s, %d, %d, %d, %d, %d, %d, %d", ctx->label, ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
-
     }
     else
     {
 //        pid_compute(pid_ctrl, real_pulses * 100, &new_speed); // should reduce pid speed to 0
         bdc_motor_brake(motor);
-
-        ESP_LOGI(TAG, "Brake: %d, %d, %d, %d, %d, %d, %d", ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
-
+        //add label for debug purposes
+        //ESP_LOGI(TAG, "Brake: %d, %d, %d, %d, %d, %d, %d", ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
+        ESP_LOGI(TAG, "Brake: %s, %d, %d, %d, %d, %d, %d, %d", ctx->label, ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
     }
 
 
@@ -174,13 +172,6 @@ static bdc_motor_handle_t motor_init(MotorDriverConfig* config) {
 static pid_ctrl_block_handle_t pid_ctrl_init(pid_ctrl_parameter_t *init_params) {
     ESP_LOGI(TAG, "Create PID control block");
 
-    //update init_params
-    init_params->cal_type = PID_CAL_TYPE_INCREMENTAL;
-    init_params->max_output   = BDC_MCPWM_DUTY_TICK_MAX - 1;
-    init_params->min_output   = (BDC_MCPWM_DUTY_TICK_MAX - 1) * -1;
-    init_params->max_integral = 1000 /4;
-    init_params->min_integral = -1000/4;
-
     pid_ctrl_block_handle_t pid_ctrl = NULL;
     pid_ctrl_config_t pid_config = {
         .init_param = *init_params
@@ -212,6 +203,11 @@ MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motor
         ESP_LOGI(TAG, "PID instantiate: %s, %f, %f, %f", ctx->label, ctx->pid_ctrl->Kp, ctx->pid_ctrl->Ki, ctx->pid_ctrl->Kd);
 
         ctx->position = 0;
+        ctx->last_pulse_count = 0;
+        ctx->last_direction = 1;
+        ctx->set_position = 0;
+        ctx->report_pulses = 0;
+        
 
         contexts[i] = ctx;
     }

@@ -34,6 +34,7 @@ typedef struct {
     pcnt_unit_handle_t pcnt_encoder;
     pid_ctrl_block_handle_t pid_ctrl;
     int report_pulses;
+    int last_pulse_count;
     int last_direction;
     int set_position;
     int position;

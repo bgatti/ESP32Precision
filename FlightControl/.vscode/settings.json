@@ -20,7 +20,8 @@
         "freertos.h": "c",
         "lis2dw12.h": "c",
         "bitset": "c",
-        "esp_timer.h": "c"
+        "esp_timer.h": "c",
+        "pulse_cnt.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
