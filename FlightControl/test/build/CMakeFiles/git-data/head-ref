@@ -1,9 +1,1 @@
-0000000000000000000000000000000000000000 e4d3c2c904c8cd688de99f947692e24b32257d83 bgatti <BenjaminGatti@gmail.com> 1692719681 -0600	commit (initial): Initial commit
-e4d3c2c904c8cd688de99f947692e24b32257d83 d41b85583281ed2eec4073a7bdcd756e5a93895e bgatti <BenjaminGatti@gmail.com> 1692720855 -0600	commit: Initial
-d41b85583281ed2eec4073a7bdcd756e5a93895e d6be6c46dbc0252fb2c3642b7de360d06f727b9b bgatti <BenjaminGatti@gmail.com> 1692741300 -0600	commit: Initial
-d6be6c46dbc0252fb2c3642b7de360d06f727b9b 9595a449274c32a36c5c5123a404fb8e38cb31b7 bgatti <BenjaminGatti@gmail.com> 1693023788 -0600	commit: Accel Test on ESP-IDF Initial Works
-9595a449274c32a36c5c5123a404fb8e38cb31b7 8abbc3b85442006c1925d1b182d1a71d15e71f6e bgatti <BenjaminGatti@gmail.com> 1693164639 -0600	commit: pre-commit of FlightControl candidate
-8abbc3b85442006c1925d1b182d1a71d15e71f6e 21792917758e44357a49806d00c5affb52b2998d bgatti <BenjaminGatti@gmail.com> 1693245771 -0600	commit: Daily Progress - Add Unity - still no compile
-21792917758e44357a49806d00c5affb52b2998d 2e473bbee2a8e9a3d0500526a030b2f5503fdaf4 bgatti <BenjaminGatti@gmail.com> 1693266252 -0600	commit: First Successful Unit Test
-2e473bbee2a8e9a3d0500526a030b2f5503fdaf4 bff8322b5cf44805267f0d8085ecb6a02ec19e43 bgatti <BenjaminGatti@gmail.com> 1693358314 -0600	commit: MotorDriver added and Initial Test compiles
-bff8322b5cf44805267f0d8085ecb6a02ec19e43 df5d65c41745a2d0f5879cb466ebc9dea7325002 bgatti <BenjaminGatti@gmail.com> 1693437162 -0600	commit: First Motor Motion
+857f672cac0bfb30431cff61014fb4cfd9a1512e

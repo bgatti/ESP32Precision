@@ -45,6 +45,10 @@ typedef struct {
 
 MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motors);
 void MotorDriver_Update_Position(MotorDriverContext* ctx, int position);
+void MotorDriver_Disable(MotorDriverContext* ctx);
+void MotorDriver_Enable(MotorDriverContext* ctx);
+
+
 static pid_ctrl_block_handle_t pid_ctrl_init(pid_ctrl_parameter_t *init_params);
 static bdc_motor_handle_t motor_init(MotorDriverConfig* config);
 static pcnt_unit_handle_t pcnt_init(int encoder_gpio);
