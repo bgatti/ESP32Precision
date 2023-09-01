@@ -661,6 +661,13 @@ C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/te
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver/CMakeFiles/install.dir
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver/CMakeFiles/install/local.dir
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/MotorDriver/CMakeFiles/install/strip.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/__IMU_test.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/edit_cache.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/rebuild_cache.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/list_install_components.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/install.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/install/local.dir
+C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/IMU_test/CMakeFiles/install/strip.dir
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12_test/CMakeFiles/__LIS2DW12_test.dir
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12_test/CMakeFiles/edit_cache.dir
 C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/test/build/esp-idf/LIS2DW12_test/CMakeFiles/rebuild_cache.dir

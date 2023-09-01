@@ -3,7 +3,6 @@
 #include "esp_timer.h"
 #include <stdio.h>
 #include <string.h>
-// log
 #include "esp_log.h"
 
 

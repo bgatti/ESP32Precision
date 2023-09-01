@@ -69,5 +69,6 @@ $<TARGET_FILE:__idf_IMU>
 $<TARGET_FILE:__idf_espressif__bdc_motor>
 $<TARGET_FILE:__idf_espressif__pid_ctrl>
 $<TARGET_FILE:__idf_MotorDriver>
+$<TARGET_FILE:__IMU_test>
 $<TARGET_FILE:__LIS2DW12_test>
 $<TARGET_FILE:__MotorDriver_test>

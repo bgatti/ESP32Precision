@@ -1,4 +1,3 @@
-idf_component_register(SRC_DIRS "."
-                    INCLUDE_DIRS "."
-                    REQUIRES cmock MotorDriver
-                    )
+idf_component_register(SRCS "test_MotorDriver.c"
+                        INCLUDE_DIRS "."
+                        REQUIRES cmock MotorDriver)

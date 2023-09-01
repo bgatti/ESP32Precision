@@ -30,12 +30,23 @@ void app_main(void)
     UNITY_END();
 
 
+    
+    print_banner("Executing IMU test by its name");
     UNITY_BEGIN();
-
-    unity_run_test_by_name("MotorDriver_Init");
-    unity_run_test_by_name("MotorDriver_Update_Position");
+    // Add your IMU tests by their name
+    unity_run_test_by_name("IMU_Init");
+    unity_run_test_by_name("IMU_Update");
 
     UNITY_END();
+
+
+    print_banner("Executing MOTOR test by its name");
+    UNITY_BEGIN();
+    unity_run_test_by_name("MotorDriver_Init");
+    //    unity_run_test_by_name("MotorDriver_Update_Position");
+    UNITY_END();
+
+    print_banner("Test Completed");
 
     
 //    print_banner("Starting interactive test menu");

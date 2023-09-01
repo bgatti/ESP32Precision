@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
 // Enumerations to handle the state of the IMU sensor
 typedef enum {
     Power_Down,
@@ -39,7 +42,7 @@ int IMU_Init();
  * 
  * @return 0 on success, -1 on error
  */
-int IMU_Update();
+int IMU_Update(IMUData* data) ;
 
 /**
  * Change the IMU sensor state
@@ -55,11 +58,5 @@ void IMU_SetState(IMUState state);
  */
 IMUState IMU_GetState();
 
-/**
- * Get the latest IMU data
- * 
- * @param data Pointer to a struct that will hold the latest IMU data
- */
-void IMU_GetData(IMUData* data);
 
 #endif // IMU_H
