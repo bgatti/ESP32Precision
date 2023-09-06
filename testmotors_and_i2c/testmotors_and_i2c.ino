@@ -10,19 +10,50 @@ const int Feedback_A = 36;
 
 const int Motor_B_IN1 = 37;
 const int Motor_B_IN2 = 38;
-const int Feedback_B = 39;
+const int Feedback_B = 26;
 
 const int Motor_C_IN1 = 41;
 const int Motor_C_IN2 = 40;
-const int Feedback_C = 26;
+const int Feedback_C = 39;
 
 volatile int pulseCountA = 0;
 volatile int pulseCountB = 0;
 volatile int pulseCountC = 0;
 
+// Variables to store high, low, and cumulative values for average computation
+int highValueA = 0, lowValueA = 1023, sumValueA = 0, readingsA = 0;
+int highValueB = 0, lowValueB = 1023, sumValueB = 0, readingsB = 0;
+int highValueC = 0, lowValueC = 1023, sumValueC = 0, readingsC = 0;
+
+
 void setup() {
     Serial.begin(115200);
     delay(1000);  // Give time for serial monitor
+
+    Serial.print("Analog Value A: ");
+    Serial.println(analogRead(Feedback_A));
+    Serial.print("Analog Value B: ");
+    Serial.println(analogRead(Feedback_B));
+    Serial.print("Analog Value C: ");
+    Serial.println(analogRead(Feedback_C));
+
+
+    pinMode(Feedback_A, INPUT_PULLUP);
+    pinMode(Feedback_B, INPUT_PULLUP);
+    pinMode(Feedback_C, INPUT_PULLUP);
+
+    Serial.print("battery ");
+    Serial.println(analogRead(14));
+
+    Serial.print("Analog Value A: ");
+    Serial.println(analogRead(Feedback_A));
+    Serial.print("Analog Value B: ");
+    Serial.println(analogRead(Feedback_B));
+    Serial.print("Analog Value C: ");
+    Serial.println(analogRead(Feedback_C));
+
+
+
 
     // Initialize the I2C bus with the given pins
     Wire.begin(SDA_PIN, SCL_PIN);
@@ -45,7 +76,56 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(Feedback_C), countPulseC, RISING);
 }
 
+void readAnalogValues() {
+    int currentValueA = analogRead(Feedback_A);
+    int currentValueB = analogRead(Feedback_B);
+    int currentValueC = analogRead(Feedback_C);
+
+
+    Serial.print("Analog Value A: ");
+    Serial.println(currentValueA);
+    Serial.print("Analog Value B: ");
+    Serial.println(currentValueB);
+    Serial.print("Analog Value C: ");
+    Serial.println(currentValueC);
+
+        
+
+    // Update high and low values for A
+    if(currentValueA > highValueA) highValueA = currentValueA;
+    if(currentValueA < lowValueA) lowValueA = currentValueA;
+    
+    // Update high and low values for B
+    if(currentValueB > highValueB) highValueB = currentValueB;
+    if(currentValueB < lowValueB) lowValueB = currentValueB;
+
+    // Update high and low values for C
+    if(currentValueC > highValueC) highValueC = currentValueC;
+    if(currentValueC < lowValueC) lowValueC = currentValueC;
+
+    // Update sums for average calculation
+    sumValueA += currentValueA;
+    sumValueB += currentValueB;
+    sumValueC += currentValueC;
+    readingsA++;
+    readingsB++;
+    readingsC++;
+}
+
 void loop() {
+
+    pinMode(Feedback_A, INPUT);
+    pinMode(Feedback_B, INPUT);
+    pinMode(Feedback_C, INPUT);
+    
+
+    readAnalogValues();  // Call this function to read and store analog values
+
+    pinMode(Feedback_A, INPUT_PULLUP);
+    pinMode(Feedback_B, INPUT_PULLUP);
+    pinMode(Feedback_C, INPUT_PULLUP);
+
+  
     Serial.println("Testing Standby Mode");
     setMotorMode(LOW, LOW); // Standby
     delay(10);
@@ -54,39 +134,67 @@ void loop() {
 
     Serial.println("Testing Forward Mode");
     setMotorMode(LOW, HIGH); // Forward
-    delay(100);
+    delay(10);
     reportPulses();
     resetPulseCounts();
 
     Serial.println("Testing Brake Mode");
     setMotorMode(HIGH, HIGH); // Brake
-    delay(10);
+    delay(500);
+    reportPulses();
+    resetPulseCounts();
+
+    Serial.println("Quiet Section (Brake Mode)");
+    setMotorMode(HIGH, HIGH); // Brake
+    delay(500);
     reportPulses();
     resetPulseCounts();
 
     Serial.println("Testing Reverse Mode");
     setMotorMode(HIGH, LOW); // Reverse
-    delay(200);
+    delay(10);
     reportPulses();
     resetPulseCounts();
 
     Serial.println("Testing Brake Mode");
     setMotorMode(HIGH, HIGH); // Brake
-    delay(10);
+    delay(100);
     reportPulses();
     resetPulseCounts();
 
     Serial.println("Testing Forward Mode");
     setMotorMode(LOW, HIGH); // Forward
-    delay(100);
+    delay(10);
     reportPulses();
     resetPulseCounts();
 
     Serial.println("Testing Brake Mode");
     setMotorMode(HIGH, HIGH); // Brake
-    delay(10);
+    delay(100);
     reportPulses();
     resetPulseCounts();
+
+    // Report analog readings
+    Serial.print("Motor A Analog High: ");
+    Serial.println(highValueA);
+    Serial.print("Motor A Analog Low: ");
+    Serial.println(lowValueA);
+    Serial.print("Motor A Analog Avg: ");
+    Serial.println(sumValueA / readingsA);
+
+    Serial.print("Motor B Analog High: ");
+    Serial.println(highValueB);
+    Serial.print("Motor B Analog Low: ");
+    Serial.println(lowValueB);
+    Serial.print("Motor B Analog Avg: ");
+    Serial.println(sumValueB / readingsB);
+
+    Serial.print("Motor C Analog High: ");
+    Serial.println(highValueC);
+    Serial.print("Motor C Analog Low: ");
+    Serial.println(lowValueC);
+    Serial.print("Motor C Analog Avg: ");
+    Serial.println(sumValueC / readingsC);    
 
 
   Serial.println("I2C device scanner. Scanning ...");

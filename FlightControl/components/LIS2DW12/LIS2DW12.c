@@ -10,8 +10,6 @@
 //file: components\LIS2DW12\LIS2DW12.c
 
 // Define constants as needed
-#define I2C_MASTER_SDA_IO  4
-#define I2C_MASTER_SCL_IO  5
 #define I2C_MASTER_NUM     I2C_NUM_0
 #define I2C_MASTER_FREQ_HZ 100000
 #define LIS2DW12TR_ADDR    0x18
@@ -46,12 +44,12 @@ int32_t i2c_read(void *ctx, uint8_t regAddr, uint8_t *data, uint16_t len) {
     return ret;
 }
 
-void i2c_master_init() {
+void i2c_master_init(int sda, int scl) {
     i2c_config_t conf;
     conf.mode = I2C_MODE_MASTER;
-    conf.sda_io_num = I2C_MASTER_SDA_IO;
+    conf.sda_io_num = sda;
     conf.sda_pullup_en = GPIO_PULLUP_ENABLE;
-    conf.scl_io_num = I2C_MASTER_SCL_IO;
+    conf.scl_io_num = scl;
     conf.scl_pullup_en = GPIO_PULLUP_ENABLE;
     conf.master.clk_speed = I2C_MASTER_FREQ_HZ;
     conf.clk_flags = 0;
@@ -62,12 +60,31 @@ void i2c_master_init() {
 
 lis2dw12_ctx_t reg_ctx;
 
-LIS2DW12StatusTypeDef accel_begin() {
-    i2c_master_init();
+LIS2DW12StatusTypeDef accel_end(void) {
+
+    /* Output data rate selection - power down. */
+    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_OFF) != 0)
+    {
+        return LIS2DW12_STATUS_ERROR;
+    }
+
+
+    i2c_driver_delete(I2C_MASTER_NUM);
+    return LIS2DW12_STATUS_OK;
+}
+
+
+// Initialize the accelerometer
+LIS2DW12StatusTypeDef accel_begin(int sda, int scl) {
+    i2c_master_init(sda, scl);
 
     reg_ctx.write_reg = i2c_write;
     reg_ctx.read_reg = i2c_read;
     reg_ctx.handle = &reg_ctx;
+
+    //settling delay
+    vTaskDelay(10 / portTICK_PERIOD_MS);
+
 
     ESP_LOGI("LIS2DW12TR", "Starting LIS2DW12TR");
 
@@ -78,12 +95,22 @@ LIS2DW12StatusTypeDef accel_begin() {
         ESP_LOGE("LIS2DW12TR", "Failed to read WHO_AM_I register");
     }
 
-    /* Output data rate selection - power down. */
-    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_100Hz) != 0)
+    /* Restore default configuration */
+    if (lis2dw12_reset_set(&reg_ctx, PROPERTY_ENABLE) != 0)
     {
-        ESP_LOGE("LIS2DW12TR", "Failed to Set Data Rate");
-    }    
+        return LIS2DW12_STATUS_ERROR;
+    }
 
+    uint8_t rst;
+    do {
+        lis2dw12_reset_get(&reg_ctx, &rst);
+    } while (rst);
+
+    /* Full scale selection. */
+    if (lis2dw12_full_scale_set(&reg_ctx, LIS2DW12_2g) != 0)
+    {
+        return LIS2DW12_STATUS_ERROR;
+    }
 
      /* Enable register address automatically incremented during a multiple byte
     access with a serial interface. */
@@ -104,23 +131,18 @@ LIS2DW12StatusTypeDef accel_begin() {
         return LIS2DW12_STATUS_ERROR;
     }
 
+    /* Output data rate selection - power down. */
+    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_200Hz) != 0)
+    {
+        ESP_LOGE("LIS2DW12TR", "Failed to Set Data Rate");
+    }    
+
     /* Power mode selection */
     if (lis2dw12_power_mode_set(&reg_ctx, LIS2DW12_HIGH_PERFORMANCE) != 0)
     {
         return LIS2DW12_STATUS_ERROR;
     }
 
-    /* Output data rate selection - power down. */
-    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_OFF) != 0)
-    {
-        return LIS2DW12_STATUS_ERROR;
-    }
-
-    /* Full scale selection. */
-    if (lis2dw12_full_scale_set(&reg_ctx, LIS2DW12_2g) != 0)
-    {
-        return LIS2DW12_STATUS_ERROR;
-    }
 
     return LIS2DW12_STATUS_OK;
 }
@@ -134,7 +156,9 @@ LIS2DW12StatusTypeDef read_accel_raw(lis_axis3bit16_t *accel_data) {
         ESP_LOGE("LIS2DW12TR", "Failed to read raw X");
     }
 
-//        ESP_LOGI("LIS2DW12TR", "X: %d", data_raw.i16bit[0]);
+    // debug the values
+    ESP_LOGI("LIS2DW12TR", "Raw X: %d, Y: %d, Z: %d", data_raw.i16bit[0], data_raw.i16bit[1], data_raw.i16bit[2]);
+
     
     //int16_t value[3];
     /* Data format 14 bits. */

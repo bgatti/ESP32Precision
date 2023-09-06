@@ -6,7 +6,7 @@ static lis_axis3bit16_t test_accel_data;
 
 TEST_CASE("accel_begin", "[LIS2DW12]")
 {
-    LIS2DW12StatusTypeDef status = accel_begin();
+    LIS2DW12StatusTypeDef status = accel_begin(4,5);
     TEST_ASSERT_EQUAL(LIS2DW12_STATUS_OK, status);
 }
 

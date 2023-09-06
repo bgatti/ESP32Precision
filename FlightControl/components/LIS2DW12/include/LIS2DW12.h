@@ -41,7 +41,8 @@ typedef union{
 //int32_t i2c_write(void *ctx, uint8_t devAddr, uint8_t *data, uint16_t len);
 //int32_t i2c_read(void *ctx, uint8_t regAddr, uint8_t *data, uint16_t len);
 
-LIS2DW12StatusTypeDef accel_begin(void);
+LIS2DW12StatusTypeDef accel_begin(int sda, int scl);
+LIS2DW12StatusTypeDef accel_end(void);
 LIS2DW12StatusTypeDef read_accel_raw(lis_axis3bit16_t *accel_data);
 LIS2DW12StatusTypeDef set_accel_mode(LIS2DW12_Operating_Mode_t mode);
 

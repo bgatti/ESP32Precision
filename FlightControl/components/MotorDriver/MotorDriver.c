@@ -5,6 +5,7 @@
 #include "esp_timer.h"
 #include "pid_ctrl.h"
 #include "MotorDriver.h"
+#include "driver/pulse_cnt.h"
 
 static const char *TAG = "MotorDriver";
 
@@ -30,10 +31,11 @@ struct pid_ctrl_block_t {
 // Disable the motor
 void MotorDriver_Disable(MotorDriverContext* ctx) {
     bdc_motor_brake(ctx->motor);
-//    bdc_motor_disable(ctx->motor);
+    bdc_motor_disable(ctx->motor);
     //reset pcnt
     pcnt_unit_handle_t pcnt_unit = ctx->pcnt_encoder;
     pcnt_unit_clear_count(pcnt_unit);
+    pid_reset_ctrl_block(ctx->pid_ctrl);
 
 }
 
@@ -73,6 +75,14 @@ void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
         ctx->position-= real_pulses;
     }
 
+    //update min/max position
+    if(ctx->position < ctx->min_position){
+        ctx->min_position = ctx->position;
+    }
+    if(ctx->position > ctx->max_position){
+        ctx->max_position = ctx->position;
+    }
+
     float position_error = ctx->set_position - ctx->position;
 
     // set the new speed
@@ -97,6 +107,8 @@ void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
 
     if( set_direction == ctx->last_direction) {
 //        pid_compute(pos_pid_ctrl, position_error, &new_target_speed);
+        bdc_motor_coast(motor); //coast during direction setting
+
         if (set_direction) {
             bdc_motor_forward(motor);  
         } else {
@@ -113,19 +125,17 @@ void MotorDriver_Update_Position(MotorDriverContext* ctx, int position) {
     else
     {
 //        pid_compute(pid_ctrl, real_pulses * 100, &new_speed); // should reduce pid speed to 0
-        bdc_motor_coast (motor);
+        bdc_motor_brake (motor);
         //add label for debug purposes
         //ESP_LOGI(TAG, "Brake: %d, %d, %d, %d, %d, %d, %d", ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)error,  (int)new_speed);
         ESP_LOGI(TAG, "Brake: %s, %d, %d, %d, %d, %d, %d, %d", ctx->label, ctx->set_position, ctx->position, ctx->last_direction, (int)position_error,  real_pulses, (int)position_error,  (int)new_speed);
     }
 
-
 }
 
 
-
 // Function to initialize PCNT for a motor
-static pcnt_unit_handle_t pcnt_init(int encoder_gpio) {
+static pcnt_unit_handle_t pcnt_init(MotorDriverContext* ctx, int encoder_gpio) {
 
     //include encoder_gpio
     ESP_LOGI(TAG, "Init pcnt driver to decode single pin pulse signal on pin: %d", encoder_gpio);
@@ -140,9 +150,10 @@ static pcnt_unit_handle_t pcnt_init(int encoder_gpio) {
     ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit));
 
     pcnt_glitch_filter_config_t filter_config = {
-        .max_glitch_ns = 1000,
+        .max_glitch_ns = PCNT_FILTER,
     };
     ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit, &filter_config));
+
 
     pcnt_chan_config_t chan_config = {
         .edge_gpio_num = encoder_gpio, 
@@ -152,11 +163,13 @@ static pcnt_unit_handle_t pcnt_init(int encoder_gpio) {
     pcnt_channel_handle_t pcnt_chan = NULL;
     ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_config, &pcnt_chan));
 
+    ctx->pcnt_chan = pcnt_chan;
+
     ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
     ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_KEEP));
 
-    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_HIGH_LIMIT));
-    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_LOW_LIMIT));
+//    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_HIGH_LIMIT));
+//    ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, BDC_ENCODER_PCNT_LOW_LIMIT));
     ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit));
     ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit));
     ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit));
@@ -203,6 +216,37 @@ static pid_ctrl_block_handle_t pid_ctrl_init(pid_ctrl_parameter_t *init_params) 
     return pid_ctrl;
 }
 
+//deinit motor driver
+void MotorDriver_DeInit(MotorDriverContext** contexts, int num_motors) {
+
+    for (int i = 0; i < num_motors; ++i) {
+        MotorDriverContext* ctx = contexts[i];
+        bdc_motor_handle_t motor = ctx->motor;
+        pcnt_unit_handle_t pcnt_unit = ctx->pcnt_encoder;
+        pid_ctrl_block_handle_t pid_ctrl = ctx->pid_ctrl;
+
+        ESP_LOGI(TAG, "Deinit bdc pcnt and pid");
+
+        bdc_motor_disable(motor);
+
+        ESP_ERROR_CHECK(bdc_motor_del(motor));
+
+        ESP_ERROR_CHECK(pcnt_unit_disable(pcnt_unit));  
+
+        pcnt_del_channel(ctx->pcnt_chan);
+
+        ESP_ERROR_CHECK(pcnt_del_unit(pcnt_unit));
+
+
+        ESP_LOGI(TAG, "free Memory");
+
+        free(pid_ctrl);
+//        free(pcnt_unit);
+        free(ctx);
+    }
+    ESP_LOGI(TAG, "Deinitialized motor driver");
+}
+
 MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motors) {
     MotorDriverContext** contexts = malloc(num_motors * sizeof(MotorDriverContext*));
 
@@ -213,7 +257,7 @@ MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motor
         ctx->motor = motor_init(&configs[i]);
 
         // Initialize PCNT
-        ctx->pcnt_encoder = pcnt_init(configs[i].encoder_gpio);
+        ctx->pcnt_encoder = pcnt_init(ctx,configs[i].encoder_gpio);
 
         // Initialize PID using configs[i].pid_params
         ctx->pid_ctrl = pid_ctrl_init(&configs[i].pid_params);

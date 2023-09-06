@@ -16,6 +16,8 @@
 #define BDC_ENCODER_PCNT_HIGH_LIMIT   1000
 #define BDC_ENCODER_PCNT_LOW_LIMIT    -1000
 
+#define PCNT_FILTER      10000
+
 #define BDC_PID_LOOP_PERIOD_MS        20   // calculate the motor speed every 10ms
 #define BDC_PID_MAX_SPEED          5  // expected motor speed, in the pulses counted by the rotary encoder
 
@@ -32,6 +34,7 @@ typedef struct {
 typedef struct {
     bdc_motor_handle_t motor;
     pcnt_unit_handle_t pcnt_encoder;
+    pcnt_channel_handle_t pcnt_chan;
     pid_ctrl_block_handle_t pid_ctrl;
     int report_pulses;
     int last_pulse_count;
@@ -44,13 +47,14 @@ typedef struct {
 
 
 MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motors);
+void MotorDriver_DeInit(MotorDriverContext** contexts, int num_motors);
 void MotorDriver_Update_Position(MotorDriverContext* ctx, int position);
 void MotorDriver_Disable(MotorDriverContext* ctx);
 void MotorDriver_Enable(MotorDriverContext* ctx);
 
+static pcnt_unit_handle_t pcnt_init(MotorDriverContext* ctx, int encoder_gpio);
 
 static pid_ctrl_block_handle_t pid_ctrl_init(pid_ctrl_parameter_t *init_params);
 static bdc_motor_handle_t motor_init(MotorDriverConfig* config);
-static pcnt_unit_handle_t pcnt_init(int encoder_gpio);
 
 #endif // _MOTORDRIVER_H_

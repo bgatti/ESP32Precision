@@ -10,11 +10,19 @@
 #include <stdio.h>
 #include <string.h>
 #include "unity.h"
+#include "esp_log.h"
+#include "esp_err.h"
+#include "esp_timer.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 static void print_banner(const char* text);
 
 void app_main(void)
 {
+
+    //delay for 500ms for usb connection
+    vTaskDelay(pdMS_TO_TICKS(500));
     /* These are the different ways of running registered tests.
      * In practice, only one of them is usually needed.
      *
@@ -23,28 +31,41 @@ void app_main(void)
      */
     print_banner("Executing one test by its name");
     
-    UNITY_BEGIN();
-    unity_run_test_by_name("accel_begin");
-    unity_run_test_by_name("test read_accel_raw");
-    unity_run_test_by_name("test set_accel_mode");
-    UNITY_END();
+    // UNITY_BEGIN();
+    // unity_run_test_by_name("accel_begin");
+    // unity_run_test_by_name("test read_accel_raw");
+    // unity_run_test_by_name("test set_accel_mode");
+    // UNITY_END();
 
 
     
     print_banner("Executing IMU test by its name");
     UNITY_BEGIN();
     // Add your IMU tests by their name
-    unity_run_test_by_name("IMU_Init");
-    unity_run_test_by_name("IMU_Update");
-
+//    unity_run_test_by_name("IMU_Init");
+    // unity_run_test_by_name("IMU_Update");
+    // unity_run_test_by_name("IMU_Deinit");
     UNITY_END();
 
 
     print_banner("Executing MOTOR test by its name");
     UNITY_BEGIN();
-    unity_run_test_by_name("MotorDriver_Init");
-    //    unity_run_test_by_name("MotorDriver_Update_Position");
+        unity_run_test_by_name("MotorDriver_Init");
+        unity_run_test_by_name("MotorDriver_Update_Position");
+        // unity_run_test_by_name("MotorDriver_DeInit");
     UNITY_END();
+
+
+   // Guidance Tests
+    print_banner("Executing Guidance tests by their names");
+    UNITY_BEGIN();
+        unity_run_test_by_name("Guidance_Init");
+    //    unity_run_test_by_name("ComputeMotorControl_Test");
+//        unity_run_test_by_name("Guidance_Loop");
+
+    UNITY_END();
+
+
 
     print_banner("Test Completed");
 

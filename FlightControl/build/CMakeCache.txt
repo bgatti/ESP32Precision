@@ -295,6 +295,26 @@ ENABLE_TESTING:BOOL=
 //No help, variable specified on the command line.
 ESP_PLATFORM:UNINITIALIZED=1
 
+//Directory under which to collect all populated content
+FETCHCONTENT_BASE_DIR:PATH=C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/build/_deps
+
+//Disables all attempts to download or update content and assumes
+// source dirs already exist
+FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
+
+//Enables QUIET option for all content population
+FETCHCONTENT_QUIET:BOOL=ON
+
+//When not empty, overrides where to find pre-populated content
+// for espidflib
+FETCHCONTENT_SOURCE_DIR_ESPIDFLIB:PATH=
+
+//Enables UPDATE_DISCONNECTED behavior for all content population
+FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of espidflib
+FETCHCONTENT_UPDATES_DISCONNECTED_ESPIDFLIB:BOOL=OFF
+
 //Value Computed by CMake
 FlightControl_BINARY_DIR:STATIC=C:/Users/Benja/OneDrive/Documents/Esp32Precision/ESP32Precision/FlightControl/build
 
@@ -516,7 +536,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=91
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=179
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
