@@ -227,6 +227,7 @@ void MotorDriver_DeInit(MotorDriverContext** contexts, int num_motors) {
 
         ESP_LOGI(TAG, "Deinit bdc pcnt and pid");
 
+        bdc_motor_brake(motor);
         bdc_motor_disable(motor);
 
         ESP_ERROR_CHECK(bdc_motor_del(motor));
@@ -272,6 +273,8 @@ MotorDriverContext** MotorDriver_Init(MotorDriverConfig configs[], int num_motor
         ctx->last_direction = 1;
         ctx->set_position = 0;
         ctx->report_pulses = 0;
+        ctx->min_position = 0;
+        ctx->max_position = 0;
 
 
         contexts[i] = ctx;

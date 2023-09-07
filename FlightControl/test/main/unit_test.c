@@ -50,8 +50,8 @@ void app_main(void)
 
     print_banner("Executing MOTOR test by its name");
     UNITY_BEGIN();
-        unity_run_test_by_name("MotorDriver_Init");
-        unity_run_test_by_name("MotorDriver_Update_Position");
+        // unity_run_test_by_name("MotorDriver_Init");
+        // unity_run_test_by_name("MotorDriver_Update_Position");
         // unity_run_test_by_name("MotorDriver_DeInit");
     UNITY_END();
 
@@ -59,9 +59,13 @@ void app_main(void)
    // Guidance Tests
     print_banner("Executing Guidance tests by their names");
     UNITY_BEGIN();
-        unity_run_test_by_name("Guidance_Init");
+//        unity_run_test_by_name("Guidance_Init");
+        unity_run_test_by_name("Guidance_Centering");
+
+
+
     //    unity_run_test_by_name("ComputeMotorControl_Test");
-//        unity_run_test_by_name("Guidance_Loop");
+        unity_run_test_by_name("Guidance_Loop");
 
     UNITY_END();
 

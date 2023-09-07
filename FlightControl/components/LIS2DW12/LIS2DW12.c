@@ -131,8 +131,9 @@ LIS2DW12StatusTypeDef accel_begin(int sda, int scl) {
         return LIS2DW12_STATUS_ERROR;
     }
 
+
     /* Output data rate selection - power down. */
-    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_200Hz) != 0)
+    if (lis2dw12_data_rate_set(&reg_ctx, LIS2DW12_XL_ODR_400Hz) != 0)
     {
         ESP_LOGE("LIS2DW12TR", "Failed to Set Data Rate");
     }    
@@ -157,7 +158,7 @@ LIS2DW12StatusTypeDef read_accel_raw(lis_axis3bit16_t *accel_data) {
     }
 
     // debug the values
-    ESP_LOGI("LIS2DW12TR", "Raw X: %d, Y: %d, Z: %d", data_raw.i16bit[0], data_raw.i16bit[1], data_raw.i16bit[2]);
+    //ESP_LOGI("LIS2DW12TR", "Raw X: %d, Y: %d, Z: %d", data_raw.i16bit[0], data_raw.i16bit[1], data_raw.i16bit[2]);
 
     
     //int16_t value[3];

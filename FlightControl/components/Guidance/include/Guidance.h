@@ -17,10 +17,11 @@
 #define ANGLE_MOTOR_1  120.0
 #define ANGLE_MOTOR_2 -120.0
 
-#define MAX_POSITION 100  // max swing of Motor
+#define MAX_POSITION 45  // max swing of Motor
 
 // methods
 void Guidance_Init();
+void Guidance_Center(); // centers the motors (finds and sets to 0
 void Guidance_DeInit();
 void Guidance_Run(); // starts GuidanceRun task
 void Guidance_Loop(); // single loop 

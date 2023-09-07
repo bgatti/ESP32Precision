@@ -49,9 +49,9 @@ TEST_CASE("Guidance_Loop", "[Guidance]") {
 
     Guidance_Init();
 // loop to run Loop() 20 times with 20ms delay
-    for (int i = 0; i < 300; ++i) {
-        Guidance_Loop();
-        vTaskDelay(pdMS_TO_TICKS(20));
+    for (int i = 0; i < 1000; ++i) {
+        Guidance_Loop(); // has baked in delay
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
     Guidance_DeInit();
 }
